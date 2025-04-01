@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Editor Portfolio</title>
+    <style>
+        /* Global Styles */
+        :root {
+            --primary: #1e1e1e;
+            --secondary: #ff4d4d;
+            --dark: #121212;
+            --light: #f8f9fa;
+            --accent: #4d94ff;
+            --gradient: linear-gradient(135deg, #ff4d4d, #4d94ff);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #f1f1f1;
+            background-color: var(--dark);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: var(--dark);
+            color: white;
+            padding: 100px 0 50px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            
+        }
+        .header-overlay img {
+            width: 100%; /* Adjust percentage to zoom out */
+            height: auto;
+            display: block;
+            margin: 0 auto; /* Center the image */
+            filter: brightness(50%);
+        }        
+        
+        .profile {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+        
+        .profile-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 5px solid var(--secondary);
+            margin: 0 auto 25px;
+            background-color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 70px;
+            color: #ddd;
+        }
+        
+        .profile h1 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .profile h2 {
+            font-size: 1.7rem;
+            font-weight: 300;
+            margin-bottom: 25px;
+            color: #ccc;
+        }
+        
+        .demo-reel-btn {
+            display: inline-block;
+            background: var(--secondary);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            border: 2px solid var(--secondary);
+        }
+        
+        .demo-reel-btn:hover {
+            background: transparent;
+            color: var(--secondary);
+        }
+        
+        .social-links {
+            margin-top: 30px;
+        }
+        
+        .social-links a {
+            color: white;
+            margin: 0 15px;
+            font-size: 1.3rem;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--secondary);
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: rgba(18, 18, 18, 0.95);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+        
+        nav a {
+            display: block;
+            padding: 20px 25px;
+            text-decoration: none;
+            color: #f1f1f1;
+            font-weight: 500;
+            transition: color 0.3s;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+        
+        nav a:hover, nav a.active {
+            color: var(--secondary);
+        }
+        
+        /* Sections */
+        section {
+            padding: 100px 0;
+        }
+        
+        section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            color: var(--light);
+            position: relative;
+        }
+        
+        section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 3px;
+            background: var(--gradient);
+        }
+        
+        /* About Section */
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 1.1rem;
+            color: #ccc;
+        }
+        
+        .about-content p {
+            margin-bottom: 20px;
+        }
+        
+        /* Services Section */
+        #services {
+            background-color: #1a1a1a;
+        }
+        
+        .services-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 30px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-left: 3px solid var(--secondary);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .service-icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+        
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--light);
+        }
+        
+        /* Portfolio Section */
+        .portfolio-filter {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+        
+        .filter-btn {
+            background: none;
+            border: none;
+            color: #ccc;
+            padding: 8px 16px;
+            margin: 0 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .portfolio-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .portfolio-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        
+        .portfolio-thumbnail {
+            width: 100%;
+            height: 220px;
+            background-color: #333;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #808080;
+            font-size: 24px;
+        }
+        
+        /*.portfolio-thumbnail::before {
+            content: '▶';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            color: var(--secondary);
+            opacity: 0.8;
+            transition: opacity 0.3s, transform 0.3s;
+        }
+        */
+        .portfolio-item:hover .portfolio-thumbnail::before {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+        
+        .portfolio-info {
+            padding: 20px;
+            background-color: #1a1a1a;
+        }
+        
+        .portfolio-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--light);
+        }
+        
+        .portfolio-info p {
+            color: #ccc;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+        
+        .portfolio-tags {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+        .portfolio-tag {
+            background-color: rgba(255, 77, 77, 0.1);
+            color: var(--secondary);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+        
+        /* Testimonials Section */
+        #testimonials {
+            background-color: #1a1a1a;
+            text-align: center;
+        }
+        
+        .testimonials-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .testimonial-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .testimonial-card:last-child {
+            margin-bottom: 0;
+        }
+        
+        .quote-icon {
+            font-size: 2rem;
+            color: var(--secondary);
+            opacity: 0.3;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            color: #ddd;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        
+        .client-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .client-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-right: 15px;
+            background-color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #808080;
+        }
+        
+        .client-details h4 {
+            color: var(--light);
+            margin-bottom: 5px;
+        }
+        
+        .client-details p {
+            color: #999;
+            font-size: 0.9rem;
+        }
+        
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .contact-item {
+            margin-bottom: 25px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .contact-icon {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin-right: 15px;
+            min-width: 30px;
+        }
+        
+        .contact-text h3 {
+            color: var(--light);
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        
+        .contact-text p, .contact-text a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .contact-text a:hover {
+            color: var(--secondary);
+        }
+        
+        .contact-form {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #ddd;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            font-size: 1rem;
+            color: #fff;
+            transition: border-color 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: var(--secondary);
+            outline: none;
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: 2px solid var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .btn:hover {
+            background-color: transparent;
+            color: var(--secondary);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #151515;
+            color: #ccc;
+            text-align: center;
+            padding: 40px 0;
+        }
+        
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin: 25px 0;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .copyright {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-info {
+                margin-bottom: 40px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .profile h1 {
+                font-size: 2.5rem;
+            }
+            
+            .profile h2 {
+                font-size: 1.3rem;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+            }
+            
+            nav a {
+                padding: 15px;
+                font-size: 0.8rem;
+            }
+            
+            section {
+                padding: 70px 0;
+            }
+            
+            .services-container, .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .portfolio-filter {
+                flex-wrap: wrap;
+            }
+            
+            .filter-btn {
+                margin-bottom: 10px;
+            }
+
+
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease forwards;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .animate-on-scroll.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .shorts-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        /* Individual Short */
+        .short {
+            width: 320px;
+            height: 560px;
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .short:hover {
+            transform: scale(1.05);
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-overlay"><img src="fondo.jpg" alt=""></div>
+        <div class="container">
+            <div class="profile">
+                <div class=>
+                    <div>
+                        <img class="profile-img" src="logo.png" alt="Description of image">
+                    </div>
+                </div>
+                <h1>Lisandro Pereyra</h1>
+                <h2>Professional Video Editor</h2>
+                <!--<a href="#portfolio" class="demo-reel-btn">Watch My Demo Reel</a>-->
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/lisandro-pereyra-esquivel/" aria-label="LinkedIn">LinkedIn</a>
+                    <a href="https://www.youtube.com/@LisandroPereyraEsquivel/shorts" aria-label="Vimeo">Youtube</a>
+                    <a href="#" aria-label="Twitter">Twitter</a>
+                    <a href="mailto:lpevideoediting@gmail.com?subject=Video%20Editing%20Services&body=I%20would%20like%20to%20know%20more%20about%20your%20services." aria-label="Email">Email</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#about" class="active">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+    
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <h2>About Me</h2>
+            <div class="about-content animate-on-scroll">
+                <p>I am a passionate freelancer video editor with over 2 years of experience specialized in social media, crafting compelling visual stories for brands, filmmakers, and content creators</p>
+                <p>Having worked across multiple industries including advertising, documentary filmmaking, and social media content creation, I bring a versatile skill set to every project. I'm proficient in Adobe Premiere Pro, After Effects, DaVinci Resolve, and Final Cut Pro, allowing me to tackle any editing challenge with confidence.</p>
+                <p>My goal is to transform raw footage into captivating narratives that engage viewers and deliver results for my clients. Whether you need a commercial that drives conversions, a documentary that moves emotions, or social media content that captures attention, I'm committed to exceeding your expectations.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Services Section -->
+    <section id="services">
+        <div class="container">
+            <h2>My Services</h2>
+            <div class="services-container">
+                <div class="service-card animate-on-scroll">
+                    <div class="service-icon">🎬</div>
+                    <h3>Commercial Editing</h3>
+                    <p>Professional edits for ads, promotional videos, and marketing content with a focus on driving engagement and conversions.</p>
+                </div>
+                <div class="service-card animate-on-scroll">
+                    <div class="service-icon">📣</div>
+                    <h3>High Impact</h3>
+                    <p>Make it short and catching, so your message can generate engagement and reach the right audience</p>
+                </div>
+                <div class="service-card animate-on-scroll">
+                    <div class="service-icon">📱</div>
+                    <h3>Social Media Content</h3>
+                    <p>Fast-paced, attention-grabbing edits optimized for various social platforms and designed to increase engagement metrics.</p>
+                </div>
+                <div class="service-card animate-on-scroll">
+                    <div class="service-icon">✨</div>
+                    <h3>Motion Graphics</h3>
+                    <p>Custom animations, transitions, and visual effects that elevate your content and reinforce your brand identity.</p>
+                </div>
+                <div class="service-card animate-on-scroll">
+                    <div class="service-icon">🎵</div>
+                    <h3>Sound Design</h3>
+                    <p>Expert audio mixing, music selection, and sound effects implementation to create an immersive viewing experience.</p>
+                </div>
+                <div class="service-card animate-on-scroll">
+                    <div class="service-icon">🎨</div>
+                    <h3>Color Grading</h3>
+                    <p>Professional color correction and stylistic grading to establish the perfect mood and visual consistency for your project.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Portfolio Section -->
+    <section id="portfolio">
+        <div class="container">
+            <h2>My Portfolio</h2>
+<!--           <div class="portfolio-filter">
+                <button class="filter-btn active">All</button>
+                <button class="filter-btn">Commercial</button>
+                <button class="filter-btn">Documentary</button>
+                <button class="filter-btn">Social Media</button>
+                <button class="filter-btn">Motion Graphics</button>
+            </div>--> 
+            <div class="portfolio-grid">
+                <div class="shorts-container portfolio-item animate-on-scroll">
+
+                    <div class="short">
+                        <iframe width="320" height="560" src="https://www.youtube.com/embed/SYvtvLntU64" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>Motion Grapihcs</h3>
+                        <p>A dynamic short form video, featuring sleek transitions and vibrant visuals.</p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">Motion graphics</span>
+                            <span class="portfolio-tag">Business</span>
+                            <span class="portfolio-tag">Engagement</span>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="shorts-container portfolio-item animate-on-scroll">
+                    <div class="short">
+                        <iframe width="320" height="560" src="https://www.youtube.com/embed/SulKO2W4Na8" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>Enhanced Storytelling</h3>
+                        <p>Make your massege reach the audience in a stronger and more touching way.</p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">Storytelling</span>
+                            <span class="portfolio-tag">Immersive</span>
+                            <span class="portfolio-tag">AfterEffects</span>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="shorts-container portfolio-item animate-on-scroll">
+                    <div class="short">
+                        <iframe width="320" height="560" src="https://www.youtube.com/embed/QBeq7Jo5uo0" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>Cut and Polish your highliths</h3>
+                        <p>Editing for podcasts and streamers who want to reach new audience by uploading their content in a short format visually striking social media videos highlighting the best and more interesting parts.</p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">Social Media</span>
+                            <span class="portfolio-tag">Streaming</span>
+                            <span class="portfolio-tag">Highliths</span>
+                        </div>
+                    </div>
+                </div>
+                
+                
+ <!--               <div class="shorts-container portfolio-item animate-on-scroll">
+                    <div class="short">
+                        <iframe width="320" height="560" src="https://www.youtube.com/embed/SYvtvLntU64" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>Corporate Explainer Video</h3>
+                        <p>An animated explainer video simplifying complex business processes through engaging motion graphics and clear narration.</p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">Motion Graphics</span>
+                            <span class="portfolio-tag">Corporate</span>
+                            <span class="portfolio-tag">After Effects</span>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="shorts-container portfolio-item animate-on-scroll">
+                    <div class="short">
+                        <iframe width="320" height="560" src="https://www.youtube.com/embed/SYvtvLntU64" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>Travel Vlog Series</h3>
+                        <p>A vibrant travel vlog series featuring exotic destinations, with dynamic editing that captures the excitement of exploration.</p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">Social Media</span>
+                            <span class="portfolio-tag">Travel</span>
+                            <span class="portfolio-tag">Final Cut Pro</span>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="shorts-container portfolio-item animate-on-scroll">
+                    <div class="short">
+                        <iframe width="320" height="560" src="https://www.youtube.com/embed/SYvtvLntU64" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>Music Video</h3>
+                        <p>A stylish music video featuring synchronized visual effects and cuts timed perfectly to the rhythm of the track.</p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">Music</span>
+                            <span class="portfolio-tag">Entertainment</span>
+                            <span class="portfolio-tag">Premiere Pro</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+    </section>
+    
+    <!-- Testimonials Section 
+    <section id="testimonials">
+        <div class="container">
+            <h2>Client Testimonials</h2>
+            <div class="testimonials-container">
+                <div class="testimonial-card">
+                    <div class="quote-icon">"</div>
+                    <p class="testimonial-text">Working with this editor was an absolute pleasure. They took our raw footage and transformed it into a compelling story that exceeded our expectations. Their attention to detail and creative vision brought our brand to life in ways we couldn't have imagined.</p>
+                    <div class="client-info">
+                        <div class="client-img">JD</div>
+                        <div class="client-details">
+                            <h4>Jane Doe</h4>
+                            <p>Marketing Director, ABC Brand</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="quote-icon">"</div>
+                    <p class="testimonial-text">I've worked with many editors over the years, but none have delivered such consistent quality and creativity. Their technical skills are top-notch, and they have an intuitive sense of pacing and storytelling that makes every project stand out. I wouldn't trust my documentary work to anyone else.</p>
+                    <div class="client-info">
+                        <div class="client-img">JS</div>
+                        <div class="client-details">
+                            <h4>John Smith</h4>
+                            <p>Independent Filmmaker</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="quote-icon">"</div>
+                    <p class="testimonial-text">Our social media campaign videos needed a fresh, energetic approach, and that's exactly what we got. The quick turnaround time and willingness to implement feedback made the process smooth and efficient. The results spoke for themselves – our engagement rates doubled after launching the videos.</p>
+                    <div class="client-info">
+                        <div class="client-img">AW</div>
+                        <div class="client-details">
+                            <h4>Alex Williams</h4>
+                            <p>Social Media Manager, XYZ Company</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    -->
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <h2>Get In Touch</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+
+                    <div class="contact-item">
+                        <div class="contact-icon">✉️</div>
+                        <div class="contact-text">
+                            <h3>Email</h3>
+                            <a href="mailto:contact@yourname.com">lpevideoediting@gmail.com
+                            </a>
+                        </div>
+                    </div>
+                    </div>
+
+                </div>
+                <div class="contact-form">
+                    <form action="https://getform.io/f/bejropja" method="POST">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" class="form-control" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">LPE Video Editing</div>
+                <p>Creating compelling visual stories through the art of video editing</p>
+                <ul class="footer-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <p class="copyright">© 2025 Your Name. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
